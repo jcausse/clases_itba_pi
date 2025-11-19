@@ -2,4 +2,4 @@
 
 * **Ejercicio 1**: OK
 * **Ejercicio 2**: OK
-* **Ejercicio 3**: TODO: Terminar
+* **Ejercicio 3**: OK
