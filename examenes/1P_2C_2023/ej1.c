@@ -31,20 +31,16 @@ void copiarFila(const unsigned int fils, char mat[fils][COLS], unsigned int src,
 }
 
 unsigned int elimina(const unsigned int fils, char mat[fils][COLS]) {
-    unsigned int filas_restantes = fils;
     unsigned int read, write = 0;
 
     for (read = 0; read < fils; read++) {
-        if (vectorPalindromo(mat[read])) {
-            filas_restantes--;                      // Anoto que la matriz de resultado tiene una fila menos
-        }
-        else {
+        if (! vectorPalindromo(mat[read])) {
             copiarFila(fils, mat, read, write);
             write++;
         }
     }
     
-    return filas_restantes;
+    return write; // Como write siempre es el indice de la proxima fila a escribir, coincide con la cantidad de filas copiadas
 }
 
 //-------------------------------------------------------------
