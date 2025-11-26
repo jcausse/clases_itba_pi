@@ -8,7 +8,5 @@
 
 Hola, soy [Juani](https://www.linkedin.com/in/jcausse/), ayudante de `72.31 - Programación Imperativa`. En este repositorio voy a estar subiendo resoluciones de ejercicios varios, tanto de guías como de parciales, hechos por mí.
 
-# Solicitar Clases Particulares
-Para solicitar clases particulares, podés contactarme via [mail](mailto:juanignaciocausse@gmail.com) o [WhatsApp](https://wa.me/541151788155).
-* Mail: juanignaciocausse@gmail.com
-* WhatsApp: 11-5178-8155
+# Contacto
+Cualquier cosa, podés contactarme via [mail](mailto:jcausse@itba.edu.ar) o [WhatsApp](https://wa.me/541151788155).
