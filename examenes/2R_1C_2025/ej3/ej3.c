@@ -11,6 +11,7 @@ typedef struct node {
  
 typedef node * TList;
 
+// SOLUCION QUE HICE YO
 TList upPop(TList l, const char * name, const unsigned int pop) {
     // Caso base 1: Llegue al final de la lista y no encontre a la persona que buscaba
     if (l == NULL) {
@@ -44,6 +45,39 @@ TList upPop(TList l, const char * name, const unsigned int pop) {
     return ret;                 // En las dos lineas de arriba me intercambie con el devuelto, y devuelvo siempre
                                 // el nodo con mas popularity
 }
+
+// OTRA SOLUCION MUY BUENA, PROPUESTA POR UN ALUMNO
+/*
+TList upPop(TList list, const char * name, unsigned int pop){
+    // Caso base 1: se agrega al final de la lista la persona nueva
+    if (list == NULL) {
+        TList new = malloc(sizeof(*new));
+        new->person = strdup(name);
+        new->popularity = pop;
+        new->tail = NULL;
+        return new;
+    }
+
+    // Caso base 2: encontro a la persona: aumenta pop
+    if (strcmp(name, list->person) == 0) {
+        list->popularity += pop;
+        return list;
+    }
+    
+    list->tail = upPop(list->tail, name, pop);
+
+    // La lista me quedo desordenada, voy intercambiando nodos hasta que me quede ordenada.
+    if (list->tail->popularity > list->popularity) {
+        TList aux = list->tail;
+        TList aux2 = aux->tail;
+        aux->tail = list;
+        list->tail = aux2;
+        return aux;
+    }
+    
+    return list;
+}
+*/
 
 void freeList(TList l) {
     if (l == NULL) {
