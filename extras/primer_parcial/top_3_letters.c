@@ -43,9 +43,9 @@ static unsigned int max_index(const int v[], const unsigned int dim) {
 /**
  * @brief Get the index for a given character c in the count vector (forward mapping)
  * @details Distribution:
- * 0: space
- * 1-26: uppercase letters
- * 27-52: lowercase letters
+ *          - 0: space
+ *          - 1-26: uppercase letters
+ *          - 27-52: lowercase letters
  * @return Returns the index corresponding to c, or -1 on error
  */
 static int index_mapper(const char c) {
@@ -64,9 +64,9 @@ static int index_mapper(const char c) {
 /**
  * @brief Get the character for a given index i in the count vector (reverse mapping)
  * @details Distribution:
- * 0: space
- * 1-26: uppercase letters
- * 27-52: lowercase letters
+ *          - 0: space
+ *          - 1-26: uppercase letters
+ *          - 27-52: lowercase letters
  * @return Returns the character corresponding to i, or '\0' on error
  */
 static char character_mapper(const int i) {
