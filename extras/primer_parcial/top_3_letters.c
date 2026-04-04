@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-static unsigned int max_index(int v[], unsigned int dim) {
+static unsigned int max_index(const int v[], const unsigned int dim) {
     unsigned int ret = 0;
     for (unsigned int i = 1; i < dim; i++) {
         if (v[i] > v[ret]) {
@@ -69,7 +69,7 @@ static int index_mapper(const char c) {
  * 27-52: lowercase letters
  * @return Returns the character corresponding to i, or '\0' on error
  */
-static char character_mapper(int i) {
+static char character_mapper(const int i) {
     if (i == SPACE) {
         return ' ';
     }
