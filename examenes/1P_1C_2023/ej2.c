@@ -5,56 +5,63 @@
 #define SUBMAT_SIZE 3
 #define IS_VALID_ELEM(e) ((e) >= 1 && (e) <= (3 * N))
 
-/// @brief      Verifica la condicion pedida en el ejercicio para 1 submatriz de tamaño 3x3
-/// @param mat  La matriz
-/// @return     -1 en caso de no cumplir alguna condicion, la suma de todos los elementos de la submatriz 
-///             si cumple con todo
-int verificar_submatriz(const int mat[N][N], const unsigned int fil_start, const unsigned int col_start) {
-    unsigned char apariciones[3 * N] = {0};
+#define INVALID_SUBMAT -1
+
+/**
+ * @brief   Verifica que se cumplan las condiciones pedidas para una sub-matriz (de 3x3).
+ * @details Verifica:
+ *          - Que todos los elementos esten entre 1 y 3*N (segun definido en IS_VALID_ELEM).
+ *          - Que no haya elementos repetidos.
+ * @param   mat         La matriz original.
+ * @param   fil_start   El indice sobre las filas donde inicia la submatriz.
+ * @param   col_start   El indice sobre las columnas donde inicia la submatriz.
+ * @return  Retorna:
+ *          - La suma de todos los elementos si la submatriz es valida.
+ *          - INVALID_SUBMAT si la submatriz no es valida.
+ */
+static int verificar_submatriz(const int mat[N][N], const unsigned int fil_start, const unsigned int col_start) {
+    unsigned int apariciones[3 * N] = {0};
+
     int suma = 0;
 
     for (unsigned int i = fil_start; i < fil_start + SUBMAT_SIZE; i++) {
         for (unsigned int j = col_start; j < col_start + SUBMAT_SIZE; j++) {
 
-            // Chequeo que el numero sea valido (este entre 1 y 3N inclusive)
-            if(! IS_VALID_ELEM(mat[i][j])) {
-                return -1;
+            // 1. Verifico que el numero sea valido y no este repetido
+            if (!IS_VALID_ELEM(mat[i][j]) || apariciones[mat[i][j] - 1] > 0) {
+                return INVALID_SUBMAT;
             }
-
-            // Chequeo que no este repetido
-            if (apariciones[mat[i][j] - 1] == 1) {
-                return -1;
-            }
-            apariciones[mat[i][j] - 1] = 1;             // Me anoto la aparicion
-
-            suma += mat[i][j];                          // Acumulo la suma de los elementos
+            
+            // 2. Si es valido y no tiene apariciones previas, sumo una aparicion
+            apariciones[mat[i][j] - 1]++;
+            
+            // 3. Sumo todos los elementos
+            suma += mat[i][j];
         }
     }
 
     return suma;
 }
 
+#define OK 1
+#define ERROR 0
+
 int verifica(const int mat[N][N]) {
-    const unsigned int N_MATRIZ_SUBMATS = N / SUBMAT_SIZE;
-    int suma = -1;
-    int aux;
+    int suma_submatriz = 0, aux;
 
-    for (unsigned int i = 0; i < N_MATRIZ_SUBMATS; i++) {
-        for (unsigned int j = 0; j < N_MATRIZ_SUBMATS; j++) {
-            if ((aux = verificar_submatriz(mat, i * 3, j * 3)) == -1) { // Si la funcion devuelve -1, hubo un error
-                return 0;                                               // retorno 0
-            }
+    for (unsigned int i = 0; i < N; i += SUBMAT_SIZE) {
+        for (unsigned int j = 0; j < N; j += SUBMAT_SIZE) {
+            aux = verificar_submatriz(mat, i, j);
 
-            // Si no hubo error, en aux tengo la suma de los elementos de la submatriz actual
-            if (suma != -1 && aux != suma) {    // Si alguna submatriz no suma lo mismo que las anteriores,
-                return 0;                       // retorno un error. suma != -1 es para ver que ya se haya calculado
-            }                                   // la suma de alguna submatriz con anterioridad
-            else if (suma == -1) {              // Solo la primera vez, seteo la suma
-                suma = aux;
+            if (aux == INVALID_SUBMAT || (suma_submatriz > 0 && suma_submatriz != aux)) {
+                return ERROR;
             }
+            
+            suma_submatriz = aux;
         }
     }
-    return 1;
+
+    return OK;
 }
 
 int main(void) {
