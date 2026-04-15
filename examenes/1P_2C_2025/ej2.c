@@ -3,45 +3,30 @@
 #include <string.h>
 #include <assert.h>
 
-void eraseTop(char * s, char c, const unsigned int top) {
-    if (top <= 0) {                 // Por eficiencia, termino si no
-        return;                     // hay nada que eliminar
+void eraseTop(char s[], char c, unsigned int top) {
+    // Si top es cero no tengo nada que hacer, early return por eficiencia
+    if (top == 0) {
+        return;
     }
 
-    c = tolower(c);                 // Comparo siempre en minuscula.
-
-    size_t read = 0;                // Indice para leer. Avanza siempre.
-    size_t write = 0;               // Indice para escribir. Avanza solo cuando no hay coincidencias (copia y avanza).
-    int erased = 0;                 // Cantidad que elimine actualmente
-
-    // Parte 1: Aplico el algoritmo de eliminar ceros mientras:
-    //          1. No se me termine el string, y
-    //          2. No haya llegado a la cantidad de eliminaciones pedida
-    while (s[read] != '\0' && erased < top) {
-
-        // Caso 1: El caracter actual no es c. No lo elimino. Copio y avanzo.
-        if (tolower(s[read]) != c) {
-            s[write] = s[read];
+    // Paso el caracter a minuscula 1 sola vez para luego hacer la comparacion siempre en minusculas
+    c = tolower(c);
+    unsigned int read = 0, write = 0;
+    while (s[read] != '\0') {
+        
+        // Si el caracter encontrado NO coincide con el que quiero eliminar
+        // o no me quedan mas ocurrencias que pueda eliminar segun el top
+        if (top == 0 || tolower(s[read]) != c) {
+            s[write] = s[read];     // Copio
             write++;
         }
 
-        // Caso 2: El caracter actual es c. Sera sobreescrito mas adelante porque no copie y no incremente write.
-        //         Esto elimina ese caracter, por lo que erased se incrementa.
-        else {
-            erased++;
+        // Si coincide
+        else {              
+            top--;                  // Al no copiar, elimine. Resto uno al top  
         }
 
-        // Siempre avanzo el de escritura.
-        read++;
-    }
-
-    // Parte 2: Como la Parte 1 podia terminar por erased >= top antes de terminar de leer todo el string, debo
-    //          seguir copiando el resto del string, independientemente de si me encuentro con c o no (porque si
-    //          me lo encuentro da igual, porque no hay que volver a eliminar)
-    while (s[read] != '\0') {
-        s[write] = s[read];     // Copio
-        read++;                 // Avanzo de forma incondicional
-        write++;                // Avanzo de forma incondicional
+        read++;                     // El indice de lectura se incrementa siempre
     }
 
     s[write] = '\0';

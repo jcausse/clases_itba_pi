@@ -1,73 +1,54 @@
 #include <stdio.h>
 #include <assert.h>
 
-#define EMPTY '0'
 #define QUEEN '1'
-#define DIRECTION_QTY 8
+#define DIRECTION_COUNT 4
 
-int checkDirection(
-    unsigned int n, char board[n][n],
-    unsigned int row_start, unsigned int col_start,
-    unsigned int row_delta, unsigned int col_delta
-) {
-    unsigned int row = row_start + row_delta;
-    unsigned int col = col_start + col_delta;
-    while (row >= 0 && row < n && col >= 0 && col < n) {
-        if (board[row][col] == QUEEN) {
-            return 0;
+bool checkDirection(int dim, const char board[dim][dim], int start_i, int start_j, int delta_i, int delta_j) {    
+    int current_i = start_i + delta_i;
+    int current_j = start_j + delta_j;
+
+    while (0 <= current_i && current_i < dim && 0 <= current_j && current_j < dim) {
+        if (board[current_i][current_j] == QUEEN) {
+            return false;
         }
-        row += row_delta;
-        col += col_delta;
+        current_i += delta_i;
+        current_j += delta_j;
     }
-    return 1;
+
+    return true;
 }
 
-int checkPosition(
-    unsigned int n, char board[n][n],
-    unsigned int row_start, unsigned int col_start
-) {
-    static int directions [DIRECTION_QTY][2] = {
-        { 0,  1},           // Este
-        {-1,  0},           // Norte
-        { 0, -1},           // Oeste
-        { 1,  0},           // Sur
-        {-1,  1},           // Nor-Este
-        {-1, -1},           // Nor-Oeste
-        { 1,  1},           // Sud-Este
-        { 1, -1}            // Sud-Oeste
-    };
-    for (unsigned int i = 0; i < DIRECTION_QTY; i++) {
-        if (! checkDirection(n, board, row_start, col_start, directions[i][0], directions[i][1])) {
-            return 0;
+/**
+ * @brief   Verifica que una posicion del tablero de nQueens sea valido.
+ * @details Una posicion es valida cuando:
+ *          - Hay una reina, pero no amenaza a ninguna otra reina para las direcciones consideradas.
+ *          - No hay reina.
+ */
+bool checkPosition(unsigned int dim, const char board[dim][dim], unsigned int i, unsigned int j) {
+    static int DIRECTIONS[DIRECTION_COUNT][2] = {{0, 1}, {1, 1}, {1, 0}, {-1, 1}};
+
+    for (unsigned int dir = 0; dir < DIRECTION_COUNT; dir++) {
+        if (!checkDirection(dim, board, i, j, DIRECTIONS[dir][0], DIRECTIONS[dir][1])) {
+            return false;
         }
     }
-    return 1;
+    return true;
 }
 
-int nQueens(unsigned int n, char board[n][n]) {
+int nQueens(unsigned int dim, const char board[dim][dim]) {
     unsigned int queen_count = 0;
-
-    for (unsigned int i = 0; i < n; i++) {
-        for (unsigned int j = 0; j < n; j++) {
+    for (unsigned int i = 0; i < dim; i++) {
+        for (unsigned int j = 0; j < dim; j++) {
             if (board[i][j] == QUEEN) {
                 queen_count++;
-
-                // No se puede tener mas de n reinas
-                if (queen_count > n) {
-                    return 0;
-                }
-                
-                // Verifico que no haya ninguna otra reina amenazando a la actual
-                if (! checkPosition(n, board, i, j)) {
+                if (!checkPosition(dim, board, i, j)) {
                     return 0;
                 }
             }
         }
     }
-
-    // No me puede dar mas que n (sale en el early return)
-    // No debe tener menos de n reinas (deben ser exactamente n)
-    return queen_count == n;
+    return queen_count == dim;
 }
 
 int main(void) {
