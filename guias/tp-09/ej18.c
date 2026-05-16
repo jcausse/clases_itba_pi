@@ -18,7 +18,6 @@ int sumMatch(const int * v) {
 
     // Si el caso anterior no me devolvio cero, estoy dentro de una secuencia. Le resto el actual.
     return ret - *v;
-
 }
 
 void test_should_return_zero() {
