@@ -12,3 +12,6 @@ ej16: ej16.c
 
 ej18: ej18.c
 	$(CC) $(CFLAGS) ej18.c -o ej18
+
+clean:
+	find . -type f -name "ej*" ! -name "*.c" -delete
