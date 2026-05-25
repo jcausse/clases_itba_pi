@@ -10,6 +10,9 @@ ej15: ej15.c
 ej16: ej16.c
 	$(CC) $(CFLAGS) ej16.c -o ej16
 
+ej17: ej17.c
+	$(CC) $(CFLAGS) ej17.c -o ej17
+
 ej18: ej18.c
 	$(CC) $(CFLAGS) ej18.c -o ej18
 
