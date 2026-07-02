@@ -3,8 +3,6 @@
 </p>
 <h1 align="center">72.31 - Programación Imperativa</h1>
 
-* 
-
 ## Sobre este repositorio
 
 Hola, soy [Juani](https://www.linkedin.com/in/jcausse/), ayudante de `72.31 - Programación Imperativa`.
