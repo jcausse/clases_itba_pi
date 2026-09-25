@@ -11,10 +11,9 @@ long factoreo(int factores[]) {
     long producto = 1;
     unsigned int read = 0, write = 0;
 
-    // Por cada valor que leo
-    while(factores[read] != END) {
-        // Multiplico primero
-        producto *= factores[read];
+    
+    while(factores[read] != END) {      // Por cada valor que leo
+        producto *= factores[read];     // Multiplico primero
 
         // Copio si es necesario (similar al "algoritmo elimina-ceros")
         if (factores[read] != factores[read + 1]) {
