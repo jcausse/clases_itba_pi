@@ -4,52 +4,62 @@
 #define QUEEN '1'
 #define DIRECTION_COUNT 4
 
-bool checkDirection(int dim, const char board[dim][dim], int start_i, int start_j, int delta_i, int delta_j) {    
-    int current_i = start_i + delta_i;
-    int current_j = start_j + delta_j;
+bool checkDirection(int dim, const char board[dim][dim], 
+                    int start_i, int start_j, 
+                    int delta_i, int delta_j
+) { 
+    // No chequeo la posicion (start_i, start_j) porque ahi esta la dama actual, y no tiene sentido
+    int current_i = start_i + delta_i;      // Posicion actual i: Pos. dama actual en i, corrido delta i
+    int current_j = start_j + delta_j;      // Posicion actual j: Pos. dama actual en j, corrido delta j
 
+    // Mientas no me salga de los limites del tablero
     while (0 <= current_i && current_i < dim && 0 <= current_j && current_j < dim) {
-        if (board[current_i][current_j] == QUEEN) {
+        if (board[current_i][current_j] == QUEEN) {     // Si encuentro una dama, posicion invalida
             return false;
         }
-        current_i += delta_i;
+        current_i += delta_i;                           // Sino, avanzo un delta en i y en j y sigo
         current_j += delta_j;
     }
 
-    return true;
-}
+    return true;                                        // Si llego a los limites y no habia dama,
+}                                                       // la posicion es valida
 
 /**
  * @brief   Verifica que una posicion del tablero de nQueens sea valido.
- * @details Una posicion es valida cuando:
- *          - Hay una reina, pero no amenaza a ninguna otra reina para las direcciones consideradas.
- *          - No hay reina.
+ * @details Una posicion es valida cuando, suponiendo que en dicha posicion hay una reina, la misma
+ *          no amenaza a ninguna otra reina para las direcciones consideradas.
  */
 bool checkPosition(unsigned int dim, const char board[dim][dim], unsigned int i, unsigned int j) {
     static int DIRECTIONS[DIRECTION_COUNT][2] = {{0, 1}, {1, 1}, {1, 0}, {-1, 1}};
 
+    // Para cada direccion (las otras 4 que faltan no hacen falta porque si hubiera una dama
+    // en alguna de esas direcciones, la otra dama ya hubiera encontrado antes a la actual)
     for (unsigned int dir = 0; dir < DIRECTION_COUNT; dir++) {
+
+        // Si hay una dama en esa direccion, posicion invalida
         if (!checkDirection(dim, board, i, j, DIRECTIONS[dir][0], DIRECTIONS[dir][1])) {
             return false;
         }
     }
+
+    // Si recorri las 4 direcciones y no habia otras damas, posicion valida
     return true;
 }
 
 int nQueens(unsigned int dim, const char board[dim][dim]) {
-    unsigned int queen_count = 0;
-    for (unsigned int i = 0; i < dim; i++) {
-        for (unsigned int j = 0; j < dim; j++) {
-            if (board[i][j] == QUEEN) {
-                queen_count++;
-                if (!checkPosition(dim, board, i, j)) {
-                    return 0;
+    unsigned int queen_count = 0;                           // Contar cuantas reinas me encuentro
+    for (unsigned int i = 0; i < dim; i++) {                
+        for (unsigned int j = 0; j < dim; j++) {            // Para cada casillero
+            if (board[i][j] == QUEEN) {                     // Si es una reina
+                queen_count++;                              // Anoto +1 reina
+                if (!checkPosition(dim, board, i, j)) {     // Verifico la posicion de la reina (si
+                    return 0;                               // amenaza a otra)
                 }
             }
         }
     }
-    return queen_count == dim;
-}
+    return queen_count == dim;                              // Para retornar 1, debe haber tantas reinas
+}                                                           // como dimension de la matriz
 
 int main(void) {
     char board[][8] = {
