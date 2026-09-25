@@ -31,6 +31,30 @@ void elimina(char v1[], const char v2[], const char v3[]) {
     v1[write] = '\0';                                       // Agregar, como SIEMPRE, la marca de final
 }
 
+/*** Otra solucion, propuesta por un alumno ***/
+
+// void elimina(char * s1, const char * s2, const char * s3) {
+//     int  i = 0, j = 0;
+//     bool t1 = true, t2 = true;
+
+//     while(s1[i] != '\0') {
+//         if (t1 && s2[i] == '\0') {
+//             t1 = false;
+//         }
+//         if (t2 && s3[i] == '\0') {
+//             t2 = false;
+//         }
+
+//         if ((!t1 || s1[i] != s2[i]) && (!t2 || s1[i] != s3[i])) {
+//             s1[j] = s1[i];
+//             j++;
+//         }
+//         i++;
+//     }
+//     s1[j] = '\0';
+// }
+
+
 int main(void) {
     char s[] = "abc";
     
