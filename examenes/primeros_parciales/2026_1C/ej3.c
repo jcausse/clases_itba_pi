@@ -59,7 +59,7 @@ int verificar_direccion (unsigned dim, const char tablero[dim][dim], Color color
         puede_comer = color_pos_actual != NO_PIEZA && color_pos_actual != color_dama;       // Determino si es una pieza que puede comer
         obstruido = color_pos_actual == color_dama;
 
-        fil += direccion[0];                                                    // Me muevo a la siguiente casilla
+        fil += direccion[0];                                                                // Me muevo a la siguiente casilla en la misma direccion
         col += direccion[1];
     }
 
