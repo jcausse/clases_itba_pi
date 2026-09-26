@@ -30,10 +30,16 @@ bool checkDirection(int dim, const char board[dim][dim],
  *          no amenaza a ninguna otra reina para las direcciones consideradas.
  */
 bool checkPosition(unsigned int dim, const char board[dim][dim], unsigned int i, unsigned int j) {
-    static int DIRECTIONS[DIRECTION_COUNT][2] = {{0, 1}, {1, 1}, {1, 0}, {-1, 1}};
+    static int DIRECTIONS[DIRECTION_COUNT][2] = {
+        {0, 1},             // Derecha
+        {1, 1},             // Abajo - Derecha
+        {1, 0},             // Abajo
+        {1, -1}             // Abajo - Izquierda
+    };
 
     // Para cada direccion (las otras 4 que faltan no hacen falta porque si hubiera una dama
     // en alguna de esas direcciones, la otra dama ya hubiera encontrado antes a la actual)
+    // VER IMAGEN (https://github.com/jcausse/clases_itba_pi/blob/main/examenes/primeros_parciales/2024_1C/ej2.png)
     for (unsigned int dir = 0; dir < DIRECTION_COUNT; dir++) {
 
         // Si hay una dama en esa direccion, posicion invalida
