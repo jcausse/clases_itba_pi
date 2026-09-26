@@ -39,7 +39,7 @@ bool es_posicion_valida(int fil, int col, unsigned int dim) {
  * @param tablero       El tablero
  * @param color_dama    El color de la dama a verificar
  * @param posicion      Posicion [fil, col] donde esta la dama a verificar
- * @param direccion     Direccion en la cual moverse para verificar
+ * @param direccion     Direccion en la cual moverse para verificar [delta fil, delta col]
  * 
  * @return              1 si puede comer, 0 en caso contrario
  */
