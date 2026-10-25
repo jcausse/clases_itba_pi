@@ -21,6 +21,12 @@ List fromArray(const int v[], unsigned int dim );
 */
 int checkElems(const List list, const int v[], int dim);
 
+/**
+ * @brief       Print a list
+ * @details     Given a list, pretty-print the list so you can visualize it.
+ */
+void printList(List l);
+
 /*
 ** Libera todos los nodos de la lista
 */

@@ -31,6 +31,19 @@ int checkElems(const List list, const int v[], int dim) {
     return aux == NULL && i==dim;
 }
 
+/**
+ * @brief       Print a list
+ * @details     Given a list, pretty-print the list so you can visualize it.
+ */
+void printList(List l) {
+    if (!l) {
+        printf("NULL\n");
+        return;
+    }
+    printf("%d -> ", l->head);
+    printList(l->tail);
+}
+
 void freeList(List list) {
     if ( list == NULL)
         return;

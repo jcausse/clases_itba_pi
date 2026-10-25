@@ -7,7 +7,7 @@
 #define ES_POSICION_VALIDA(fils, cols, i, j) ((i) >= 0 && (i) < (fils) && (j) >= 0 && (j) < (cols))
 
 typedef enum {DER=0, IZQ, ABA, ARR, I_AR, I_AB, D_AR, D_AB } Tdireccion; 
- 
+
 struct posicion { 
     char * palabra; 
     size_t fila; 
